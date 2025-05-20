@@ -1,10 +1,13 @@
+from typing import Any
 from blog.models import Post
 from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
     help = 'this command insert post data'
 
-    def handle(self, *arg:any, **option:any):
+    def handle(self, *arg: Any, **option: Any):
+        # deiete existing data 
+        Post.objects.all().delete()
         titles = [
                 "The Future of AI",
                 "Climate Change Solutions",

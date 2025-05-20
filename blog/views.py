@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 import logging
 from .models import Post
+from django .http import Http404
 
 # Create your views here.
 
@@ -20,14 +21,18 @@ def index (request):
     title = 'portfolio gokul'
     return render(request, 'hi.html', {'title':title , 'posts':posts})
 
-def post (request , post_id):
+def post (request , slug):
     # return render(request , 'hello.html' )
 
     # static field
     # post = next((item for item in posts if item['id'] == post_id ),None)
 
-    # getting post id 
-    post = Post.objects.get(pk=post_id)
+    try:
+        # getting post id 
+        # post = Post.objects.get(pk=post_id)
+        post = Post.objects.get(slug=slug)
+    except Post.DoesNotExist:
+        raise Http404('post does not txit')
 
     logger = logging.getLogger('testing')
     logger.debug(F'post variable is {post}')

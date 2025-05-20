@@ -10,11 +10,11 @@
             <div class="d-flex flex-wrap justify-content-start ">
                   <img src="{{post.img_url}}" width='300px' height="300px">
                   <div class="bg-black text-white p-3 m-2" style="flex: 0 0 calc(33.333% - 1rem); box-sizing: border-box;" >
-                        
-                        <h3>{{post.title}}</h3>
-                        <h4>{{post.content}}</h4>
+                        <h2>{{post.title}}</h2>
+                        <h5>{{post.content|truncatechars:50}}</h5>
+                        <h6>{{post.created_at|date:"F j, Y"}}</h6>
                         {% comment %} <a href="/blog/post/{{post.id}}">read more</a> {% endcomment %}
-                        <a href="{% url 'blog:post' post_id=post.id %}">read more</a>
+                        <a href="{% url 'blog:post' slug=post.slug %}">read more</a>
                   </div>
             </div>
       {% endfor %}                                                                    

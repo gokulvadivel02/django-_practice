@@ -1,1 +1,1 @@
-from .populate_data import Command as populatePostCommand
+from .populate_data import Command as populatepostsCommand

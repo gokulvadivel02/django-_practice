@@ -19,11 +19,12 @@
     <div class="container-fluid bg-secondary">
        
         <div class="d-flex flex-column   justify-content-center align-items-center vh-100">
-            <div class="text-light">
+            <div >
                 <h1 class="fw-bold text-center text-dark">pages</h1>
                 <img src="{{post.img_url}}">
                 <h1>{{post.title}}</h1>
                 <h1>{{post.content}}</h1>
+                <h6>{{post.created_at|date:"F j, Y"}}</h6>
                 <p class="fs-3">Please check the url</p>
             </div>
             <div>
