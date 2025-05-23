@@ -4,6 +4,7 @@ from django.urls import reverse
 import logging
 from .models import Post
 from django .http import Http404
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -19,7 +20,13 @@ posts=Post.objects.all()
 
 def index (request):
     title = 'portfolio gokul'
-    return render(request, 'hi.html', {'title':title , 'posts':posts})
+
+    paginator=Paginator(posts, 5)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
+
+    return render(request, 'hi.html', {'title':title , 'page_obj':page_obj})
+
 
 def post (request , slug):
     # return render(request , 'hello.html' )
@@ -30,13 +37,16 @@ def post (request , slug):
     try:
         # getting post id 
         # post = Post.objects.get(pk=post_id)
-        post = Post.objects.get(slug=slug)
+        post = Post.objects.get(slug=slug) 
+        related_posts = Post.objects.filter(category=post.category).exclude(pk=post.id)
+
     except Post.DoesNotExist:
         raise Http404('post does not txit')
 
-    logger = logging.getLogger('testing')
-    logger.debug(F'post variable is {post}')
-    return render(request , 'hello.html' , {'post':post})
+    # logger = logging.getLogger('testing')
+    # logger.debug(F'post variable is {post}')
+    
+    return render(request , 'hello.html' , {'post':post, 'related_posts':related_posts})
 
 def old_url (request ) :
     return redirect(reverse('blog:new_page_url'))

@@ -21,11 +21,15 @@
         <div class="d-flex flex-column   justify-content-center align-items-center vh-100">
             <div >
                 <h1 class="fw-bold text-center text-dark">pages</h1>
-                <img src="{{post.img_url}}">
-                <h1>{{post.title}}</h1>
+                <img style="margin-top:20px;" src="{{post.img_url}}">
+                <h6><a href='/blog'>blog</a></h6>
+                <h1>{{post.title}} <small>({{post.category.name}})</small> </h1>
                 <h1>{{post.content}}</h1>
                 <h6>{{post.created_at|date:"F j, Y"}}</h6>
-                <p class="fs-3">Please check the url</p>
+                <h2>related posts</h2>
+                {% for related_post in related_posts %}
+                <li><a href='{% url 'blog:post' slug=related_post.slug %}'>{{related_post.title}}</a></li>
+                {% endfor %}
             </div>
             <div>
                 <a class="text-dark fw-bold" href="/">Go to Home Page </a>
